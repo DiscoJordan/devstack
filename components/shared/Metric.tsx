@@ -32,9 +32,9 @@ const Metric = ({
         className={`object-contain ${href ? "rounded-full" : ""}`}
       />
       <p className={`${textStyles} flex-center gap-1 `}>
-        {isAuthor?value:formatNumber(value)}
+        {isAuthor ? value : formatNumber(value)}
         <span
-          className={`small-regular leading-none  line-clamp-1 ${isAuthor ? "max-sm:hidden" : ""}`}
+          className={`small-regular line-clamp-1  leading-none ${isAuthor ? "max-sm:hidden" : ""}`}
         >
           {title}
         </span>
@@ -43,7 +43,7 @@ const Metric = ({
   );
   if (href) {
     return (
-      <Link href={href} className="flex-center gap1">
+      <Link href={href} className="flex-center gap-1">
         {metricContent}
       </Link>
     );

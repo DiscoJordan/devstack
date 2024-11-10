@@ -5,5 +5,9 @@
     "standard",
     "plugin:tailwindcss/recommended",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "prefer-const": "off",          
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }
