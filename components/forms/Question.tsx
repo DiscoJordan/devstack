@@ -21,17 +21,17 @@ import { Input } from "@/components/ui/input";
 import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import { createQuestion } from "@/lib/actions/question.action";
-interface Props{
-  mongoUserId:string;
+interface Props {
+  mongoUserId: string;
 }
 
-const type:any = "create";
+const type: any = "create";
 
-const Question = ({mongoUserId}:Props) => {
+const Question = ({ mongoUserId }: Props) => {
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter()
-  const pathname = usePathname()
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -47,15 +47,15 @@ const Question = ({mongoUserId}:Props) => {
 
     try {
       await createQuestion({
-        title:values.title,
-        content:values.explanation,
-        tags:values.tags,
-        author: JSON.parse(mongoUserId)
-      })
-      router.push('/')
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+        path: pathname,
+      });
+      router.push("/");
     } catch (error) {
-      
-    } finally{
+    } finally {
       setIsSubmitting(false);
     }
   }
@@ -135,9 +135,11 @@ const Question = ({mongoUserId}:Props) => {
                     editorRef.curitrent = editor;
                   }}
                   onBlur={field.onBlur}
-                  onEditorChange={(content)=>field.onChange(content)}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
+                  
                   init={{
+                    
                     height: 350,
                     menubar: false,
                     plugins: [
@@ -161,7 +163,8 @@ const Question = ({mongoUserId}:Props) => {
                       "undo redo | blocks |" +
                       "codesample  bold italic forecolor | alignleft aligncenter " +
                       "alignright alignjustify | bullist numlist outdent indent | ",
-                    content_style: "body { font-family:Inter,Arial; font-size:16px }",
+                    content_style:
+                      "body { font-family:Inter,Arial; font-size:16px }",
                   }}
                 />
               </FormControl>
