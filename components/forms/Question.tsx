@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 
 import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const type:any = "create";
 
@@ -35,11 +36,11 @@ const Question = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true);
 
     try {
-      {type==='create'}
+      await createQuestion({})
     } catch (error) {
       
     } finally{
@@ -121,6 +122,8 @@ const Question = () => {
                     // @ts-ignore
                     editorRef.curitrent = editor;
                   }}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content)=>field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
@@ -146,7 +149,7 @@ const Question = () => {
                       "undo redo | blocks |" +
                       "codesample  bold italic forecolor | alignleft aligncenter " +
                       "alignright alignjustify | bullist numlist outdent indent | ",
-                    content_style: "body { font-family:Inter; font-size:16px }",
+                    content_style: "body { font-family:Inter,Arial; font-size:16px }",
                   }}
                 />
               </FormControl>
